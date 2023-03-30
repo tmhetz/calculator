@@ -1,3 +1,19 @@
+let display = document.getElementById('calcScreen');
+
+let operators = document.querySelectorAll(".operator");
+operators.forEach(item => {
+    item.addEventListener('click', (event) => {
+        temp = event.target.innerText;
+        // update operandOne or operandTwo
+        updateOperands(temp);
+        console.log(operandOne);
+        console.log(operandTwo);
+        // update display
+        updateDisplay();
+
+    });
+});
+
 function add(x, y){
     return x + y;
 }
@@ -14,8 +30,9 @@ function divide(x, y){
     return x / y;
 }
 
-let operandOne;
-let operandTwo;
+let operandOne = "";
+let operandTwo = "";
+let operatorSet = false;
 let operator;
 
 function operate (operandOne, operandTwo, operator){
@@ -28,4 +45,16 @@ function operate (operandOne, operandTwo, operator){
     } else if(operator === "/"){
         return divide(operandOne, operandTwo);
     }
+}
+
+function updateOperands(temp){
+    if(!operatorSet){
+        operandOne += temp;
+    } else {
+        operandTwo += temp;
+    }
+}
+
+function updateDisplay(){
+    display.innerText = operandOne;
 }
