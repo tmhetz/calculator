@@ -1,6 +1,7 @@
 let display = document.getElementById('calcScreen');
 let operands = document.querySelectorAll('.operand');
 let equals = document.getElementById('equals');
+let clear = document.getElementById('clear');
 
 operands.forEach(item => {
     item.addEventListener('click', (event) => {
@@ -25,7 +26,14 @@ equals.addEventListener('click', () => {
     operandOne = Number(operandOne);
     operandTwo = Number(operandTwo);
     temp = operate(operandOne, operandTwo, operator);
-    display.innerText = temp;
+    display.innerText = Math.round(temp*100)/100;
+    operandOne = temp;
+    resetNotOne();
+});
+
+clear.addEventListener('click', () => {
+    totalReset();
+    updateDisplay();
 });
 
 function add(x, y){
@@ -44,10 +52,23 @@ function divide(x, y){
     return x / y;
 }
 
+function resetNotOne(){
+    operandTwo = "";
+    operator = "";
+    operatorSet = false;
+}
+
+function totalReset(){
+    operandOne = "";
+    operandTwo = "";
+    operator = "";
+    operatorSet = false;
+}
+
 let operandOne = "";
 let operandTwo = "";
 let operatorSet = false;
-let operator = "+";
+let operator = "";
 
 function operate (operandOne, operandTwo, operator){
     if(operator === "+"){
