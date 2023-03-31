@@ -2,6 +2,7 @@ let display = document.getElementById('calcScreen');
 let operands = document.querySelectorAll('.operand');
 let equals = document.getElementById('equals');
 let clear = document.getElementById('clear');
+let plusMinus = document.getElementById('plusMinus');
 
 operands.forEach(item => {
     item.addEventListener('click', (event) => {
@@ -33,6 +34,15 @@ equals.addEventListener('click', () => {
 
 clear.addEventListener('click', () => {
     totalReset();
+    updateDisplay();
+});
+
+plusMinus.addEventListener('click', () => {
+    if(!operatorSet){
+        operandOne = operandOne * -1;
+    } else {
+        operandTwo = operandTwo * -1;
+    }
     updateDisplay();
 });
 
