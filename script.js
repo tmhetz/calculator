@@ -3,17 +3,24 @@ let operands = document.querySelectorAll('.operand');
 let equals = document.getElementById('equals');
 let clear = document.getElementById('clear');
 let plusMinus = document.getElementById('plusMinus');
+let operators = document.querySelectorAll(".operator");
 
-operands.forEach(item => {
+operators.forEach(item => {
     item.addEventListener('click', (event) => {
-        if(!operatorSet) operatorSet = true;
-        operator = event.target.innerText;
-        updateDisplay();
+        if(!operatorSet) {
+            operatorSet = true;
+            operator = event.target.innerText;
+            updateDisplay();
+        } else {
+            equals.click();
+            operatorSet = true;
+            operator = event.target.innerText;
+            updateDisplay();
+        }
     });
 });
 
-let operators = document.querySelectorAll(".operator");
-operators.forEach(item => {
+operands.forEach(item => {
     item.addEventListener('click', (event) => {
         temp = event.target.innerText;
         // update operandOne or operandTwo
