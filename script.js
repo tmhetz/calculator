@@ -31,6 +31,11 @@ operands.forEach(item => {
 });
 
 equals.addEventListener('click', () => {
+    if(!operandTwo) return;
+    if(zeroCheck()) {
+        totalReset();
+        return;
+    }
     operandOne = Number(operandOne);
     operandTwo = Number(operandTwo);
     temp = operate(operandOne, operandTwo, operator);
@@ -113,4 +118,12 @@ function updateDisplay(){
     } else {
         display.innerText = operandOne;
     }
+}
+
+function zeroCheck(){
+    if(operandTwo === "0" && operator === "÷"){
+        display.innerText = "can't do that, sorry!";
+        return true;
+    }
+    return false;
 }
