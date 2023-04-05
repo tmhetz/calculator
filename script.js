@@ -4,6 +4,8 @@ let equals = document.getElementById('equals');
 let clear = document.getElementById('clear');
 let plusMinus = document.getElementById('plusMinus');
 let operators = document.querySelectorAll(".operator");
+let dot = document.getElementById('dot');
+let percent = document.getElementById('percent');
 
 operators.forEach(item => {
     item.addEventListener('click', (event) => {
@@ -58,6 +60,22 @@ plusMinus.addEventListener('click', () => {
     updateDisplay();
 });
 
+dot.addEventListener('click', (event) => {
+    temp = event.target.innerText;
+    updateOperands(temp);
+    updateDisplay();
+});
+
+percent.addEventListener('click', () => {
+    if(operatorSet){
+        operandTwo = Number(operandTwo)/100;
+        updateDisplay();
+    } else {
+        operandOne = Number(operandOne)/100;
+        updateDisplay();
+    }
+});
+
 function add(x, y){
     return x + y;
 }
@@ -106,8 +124,10 @@ function operate (operandOne, operandTwo, operator){
 
 function updateOperands(temp){
     if(!operatorSet){
+        if(isDot(temp) && containsDot(operandOne)) return;
         operandOne += temp;
     } else {
+        if(isDot(temp) && containsDot(operandTwo)) return;
         operandTwo += temp;
     }
 }
@@ -123,6 +143,19 @@ function updateDisplay(){
 function zeroCheck(){
     if(operandTwo === "0" && operator === "÷"){
         display.innerText = "can't do that, sorry!";
+        return true;
+    }
+    return false;
+}
+
+function isDot(string){
+    if(string === ".") return true;
+
+    return false;
+}
+
+function containsDot(string){
+    if(string.includes(".")){
         return true;
     }
     return false;
