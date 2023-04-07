@@ -7,6 +7,14 @@ let operators = document.querySelectorAll(".operator");
 let dot = document.getElementById('dot');
 let percent = document.getElementById('percent');
 
+document.addEventListener('keydown', (event) =>{
+    console.log(event.key);
+    if(event.key === '=') equals.click();
+    if(isNaN(event.key)) return;
+    updateOperands(event.key);
+    updateDisplay();
+}, false);
+
 operators.forEach(item => {
     item.addEventListener('click', (event) => {
         if(!operatorSet) {
@@ -160,3 +168,21 @@ function containsDot(string){
     }
     return false;
 }
+
+function handleFirstTab(e) {
+    if(e.keyCode === 9){
+        document.body.classList.add('user-is-tabbing');
+        window.removeEventListener('keydown', handleFirstTab);
+        window.addEventListener('mousedown', handleMouseDown);
+    }
+}
+
+function handleMouseDown(e) {
+    document.body.classList.remove('user-is-tabbing');
+    window.removeEventListener('mousedown', handleMouseDown);
+    window.addEventListener('keydown', handleFirstTab);
+}
+
+window.addEventListener('keydown', handleFirstTab);
+
+
